@@ -6,6 +6,7 @@ from hermes_python.hermes import Hermes
 from hermes_python.ffi.utils import MqttOptions
 from hermes_python.ontology import *
 import io
+import serial
 
 CONFIGURATION_ENCODING_FORMAT = "utf-8"
 CONFIG_INI = "config.ini"
@@ -30,9 +31,8 @@ def subscribe_intent_callback(hermes, intentMessage):
 
 
 def action_wrapper(hermes, intentMessage, conf):
-    {{#each action_code as |a|}}{{a}}
-    {{/each}}
-
+    port = serial.Serial("/dev/ttyUSB0", baudrate=9600, timeout=3.0)
+    port.write(b'1')
 
 if __name__ == "__main__":
     mqtt_opts = MqttOptions()
